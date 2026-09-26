@@ -40,6 +40,9 @@ class InputCell : public DetailCell
     }
 
     void setPlaceholder(std::string placeholder);
+
+    // Draws the value as dots (passwords); the keyboard still shows it while editing
+    void setSecure(bool secure);
     std::string getPlaceholder()
     {
         return placeholder;
@@ -66,6 +69,7 @@ class InputCell : public DetailCell
     std::string value;
     std::string hint;
     std::string placeholder;
+    bool secure = false;
     int maxInputLength;
     int kbdDisableBitmask;
 

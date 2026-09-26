@@ -17,6 +17,7 @@
     limitations under the License.
 */
 
+#include <unistd.h>
 #include <cstdio>
 #include <cstdlib>
 #include <cmath>
@@ -1275,7 +1276,11 @@ int Application::getFont(std::string fontName)
 int Application::getDefaultFont()
 {
 #ifdef __SWITCH__
-    static int regular = Application::getFont(FONT_CHINESE_SIMPLIFIED);
+    // The Standard font draws Latin text (the Chinese one draws ü/ö/á as wide glyphs, "b ü y ü k");
+    // the CJK, Korean, icon and emoji fonts are its fallbacks. A custom font replaces it as before.
+    static int regular = access(FontLoader::USER_FONT_PATH.c_str(), F_OK) != -1
+                             ? Application::getFont(FONT_CHINESE_SIMPLIFIED)
+                             : Application::getFont(FONT_REGULAR);
 #else
     static int regular = Application::getFont(FONT_REGULAR);
 #endif

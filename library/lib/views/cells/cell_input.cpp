@@ -60,6 +60,12 @@ void InputCell::setPlaceholder(std::string placeholder)
     updateUI();
 }
 
+void InputCell::setSecure(bool secure)
+{
+    this->secure = secure;
+    updateUI();
+}
+
 void InputCell::updateUI()
 {
     Theme theme = Application::getTheme();
@@ -67,6 +73,14 @@ void InputCell::updateUI()
     {
         this->detail->setText(placeholder);
         this->detail->setTextColor(theme["brls/text_disabled"]);
+    }
+    else if (this->secure)
+    {
+        std::string dots;
+        for (size_t i = 0; i < this->value.size() && i < 8; i++)
+            dots += "●";
+        this->detail->setText(dots);
+        this->detail->setTextColor(theme["brls/list/listItem_value_color"]);
     }
     else
     {

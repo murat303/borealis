@@ -350,6 +350,11 @@ float Box::getPaddingRight()
 
 View* Box::getDefaultFocus()
 {
+    // A hidden (gone) box must not hand the focus to its children: they keep their own
+    // visibility, so the focus would land on something that is not on screen
+    if (this->getVisibility() == Visibility::GONE)
+        return nullptr;
+
     // Focus ourself first
     if (this->isFocusable())
         return this;
