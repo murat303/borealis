@@ -284,6 +284,9 @@ void GLFWInputManager::updateUnifiedControllerState(ControllerState* state)
     // Shoulder buttons on the keyboard, for the desktop test runs
     state->buttons[BUTTON_LB] |= glfwGetKey(this->window, GLFW_KEY_PAGE_UP) != 0;
     state->buttons[BUTTON_RB] |= glfwGetKey(this->window, GLFW_KEY_PAGE_DOWN) != 0;
+    // Y and X on the keyboard as well
+    state->buttons[BUTTON_Y] |= glfwGetKey(this->window, GLFW_KEY_Y) != 0;
+    state->buttons[BUTTON_X] |= glfwGetKey(this->window, GLFW_KEY_X) != 0;
 
     state->buttons[BUTTON_NAV_UP] |= state->buttons[BUTTON_UP];
     state->buttons[BUTTON_NAV_RIGHT] |= state->buttons[BUTTON_RIGHT];
